@@ -17,8 +17,8 @@
         "dotenvx": "dotenvx run -f .dev.vars",
         "format": "prettier --check .",
         "format:fix": "prettier --write .",
-        "lint": "next lint",
-        "lint:fix": "next lint --fix",
+        "lint": "eslint . ",
+        "lint:fix": "eslint . --fix",
         "prepare": "husky",
         "typecheck": "tsc --noEmit"
     },
@@ -30,7 +30,6 @@
     },
     "prettier": {
         "importOrder": [
-            "^(react|next?/?([a-zA-Z/]*))$",
             "<THIRD_PARTY_MODULES>",
             "^@/(.*)$",
             "^[./]"

@@ -1,8 +1,9 @@
 // import path from "node:path";
 // import { config } from "dotenv";
 // import { expand } from "dotenv-expand";
-import type { Bindings } from "@/types/app-bindings";
 import { z } from "zod";
+
+import type { Bindings } from "@/types/app-bindings";
 
 // expand(
 //     config({
@@ -17,18 +18,7 @@ const EnvSchema = z
     .object({
         // DB: z.instanceof(D1Database),
         ENV: z.enum(["dev", "test", "prod", "stage"]).optional().default("dev"),
-        LOG_LEVEL: z
-            .enum([
-                "fatal",
-                "error",
-                "warn",
-                "info",
-                "debug",
-                "trace",
-                "silent",
-            ])
-            .optional()
-            .default("debug"),
+        LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]).optional().default("debug"),
         CLOUDFLARE_ACCOUNT_ID: z.string(),
         CLOUDFLARE_DATABASE_ID: z.string().optional(),
         CLOUDFLARE_D1_TOKEN: z.string().optional(),
@@ -60,14 +50,12 @@ const EnvSchema = z
 
 export type Environment = z.infer<typeof EnvSchema>;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function parseEnv(data: any): Bindings {
     const { data: env, error } = EnvSchema.safeParse(data);
 
     if (error) {
-        const errorMessage = `Invalid ENV - ${Object.entries(
-            error.flatten().fieldErrors,
-        )
+        const errorMessage = `Invalid ENV - ${Object.entries(error.flatten().fieldErrors)
             .map(([key, errors]) => `${key}: ${errors?.join(",")}`)
             .join(" | ")}`;
         throw new Error(errorMessage);

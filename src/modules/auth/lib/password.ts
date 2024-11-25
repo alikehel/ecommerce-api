@@ -9,23 +9,14 @@ export async function hashPasswordV1(password: string): Promise<string> {
             r: 8,
             p: 5,
         };
-        crypto.scrypt(
-            password,
-            salt,
-            keyLength,
-            scryptParams,
-            (err, derivedKey) => {
-                if (err) reject(err);
-                resolve(`v1:${salt}:${derivedKey.toString("hex")}`);
-            },
-        );
+        crypto.scrypt(password, salt, keyLength, scryptParams, (err, derivedKey) => {
+            if (err) reject(err);
+            resolve(`v1:${salt}:${derivedKey.toString("hex")}`);
+        });
     });
 }
 
-export async function verifyPasswordV1(
-    password: string,
-    hash: string,
-): Promise<boolean> {
+export async function verifyPasswordV1(password: string, hash: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
         const [version, salt, key] = hash.split(":");
         if (version !== "v1") {
@@ -37,15 +28,9 @@ export async function verifyPasswordV1(
             r: 8,
             p: 5,
         };
-        crypto.scrypt(
-            password,
-            salt,
-            keyLength,
-            scryptParams,
-            (err, derivedKey) => {
-                if (err) reject(err);
-                resolve(key === derivedKey.toString("hex"));
-            },
-        );
+        crypto.scrypt(password, salt, keyLength, scryptParams, (err, derivedKey) => {
+            if (err) reject(err);
+            resolve(key === derivedKey.toString("hex"));
+        });
     });
 }

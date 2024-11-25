@@ -1,10 +1,10 @@
-import type { MiddlewareHandler } from "@/types/app-type";
 import type { Context } from "hono";
-
 import type { Env } from "hono-pino";
 import { logger } from "hono-pino";
 import pino from "pino";
 import pretty from "pino-pretty";
+
+import type { MiddlewareHandler } from "@/types/app-type";
 
 import type {} from "../types/app-bindings";
 

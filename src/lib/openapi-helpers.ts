@@ -1,13 +1,8 @@
-import type { ZodSchema } from "@/types/zod-schema";
-import {
-    OpenAPIRegistry,
-    OpenApiGeneratorV3,
-} from "@asteasolutions/zod-to-openapi";
+import { OpenAPIRegistry, OpenApiGeneratorV3 } from "@asteasolutions/zod-to-openapi";
 
-export const jsonContent = <T extends ZodSchema>(
-    schema: T,
-    description: string,
-) => {
+import type { ZodSchema } from "@/types/zod-schema";
+
+export const jsonContent = <T extends ZodSchema>(schema: T, description: string) => {
     return {
         content: {
             "application/json": {
@@ -18,20 +13,14 @@ export const jsonContent = <T extends ZodSchema>(
     };
 };
 
-export const jsonContentRequired = <T extends ZodSchema>(
-    schema: T,
-    description: string,
-) => {
+export const jsonContentRequired = <T extends ZodSchema>(schema: T, description: string) => {
     return {
         ...jsonContent(schema, description),
         required: true,
     };
 };
 
-export const jsonContentOneOf = <T extends ZodSchema>(
-    schemas: T[],
-    description: string,
-) => {
+export const jsonContentOneOf = <T extends ZodSchema>(schemas: T[], description: string) => {
     return {
         content: {
             "application/json": {

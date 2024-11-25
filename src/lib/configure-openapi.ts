@@ -1,6 +1,7 @@
-import type { AppType } from "@/types/app-type";
 import { swaggerUI } from "@hono/swagger-ui";
 import { apiReference } from "@scalar/hono-api-reference";
+
+import type { AppType } from "@/types/app-type";
 
 export function configureOpenAPI(app: AppType) {
     app.get("/", async (c) => {

@@ -1,6 +1,7 @@
-import type { Bindings, Variables } from "@/types/app-bindings";
 import type { Context } from "hono";
 import { setCookie } from "hono/cookie";
+
+import type { Bindings, Variables } from "@/types/app-bindings";
 
 export function setSessionTokenCookie(
     c: Context<{

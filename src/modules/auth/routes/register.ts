@@ -1,16 +1,11 @@
+import { createRoute, z } from "@hono/zod-openapi";
+
 import { CREATED, UNPROCESSABLE_ENTITY } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
-import {
-    errorResponseSchema,
-    successResponseSchema,
-} from "@/lib/response-schemas";
-import {
-    usersInsertSchema,
-    usersSelectSchema,
-    usersTable,
-} from "@/modules/users/schemas";
+import { errorResponseSchema, successResponseSchema } from "@/lib/response-schemas";
+import { usersInsertSchema, usersSelectSchema, usersTable } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
-import { createRoute, z } from "@hono/zod-openapi";
+
 import { createSession } from "../lib/create-session";
 import { generateSessionToken } from "../lib/generate-session-token";
 import { hashPasswordV1 } from "../lib/password";
@@ -36,16 +31,11 @@ export const registerRoute = createRoute({
             ),
             "User registered",
         ),
-        [UNPROCESSABLE_ENTITY]: jsonContent(
-            errorResponseSchema,
-            "Validation error",
-        ),
+        [UNPROCESSABLE_ENTITY]: jsonContent(errorResponseSchema, "Validation error"),
     },
 });
 
-export const registerHandler: AppRouteHandler<typeof registerRoute> = async (
-    c,
-) => {
+export const registerHandler: AppRouteHandler<typeof registerRoute> = async (c) => {
     const data = c.req.valid("json");
     const db = c.var.db;
 

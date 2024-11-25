@@ -1,25 +1,16 @@
-import type { MiddlewareHandler } from "@/types/app-type";
 import { cors as honoCors } from "hono/cors";
 import { HTTPException } from "hono/http-exception";
+
+import type { MiddlewareHandler } from "@/types/app-type";
 
 export const cors = (): MiddlewareHandler => {
     return async (c, next) => {
         const allowedHost = c.env.ALLOWED_HOST;
-        const origin =
-            allowedHost === "*"
-                ? "*"
-                : new URL(c.req.header("referer") || "").origin;
+        const origin = allowedHost === "*" ? "*" : new URL(c.req.header("referer") || "").origin;
         if (origin.endsWith(allowedHost)) {
             return honoCors({
                 origin,
-                allowMethods: [
-                    "GET",
-                    "POST",
-                    "OPTIONS",
-                    "PUT",
-                    "PATCH",
-                    "DELETE",
-                ],
+                allowMethods: ["GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"],
                 allowHeaders: ["Content-Type", "baggage"],
                 exposeHeaders: ["Content-Type"],
                 credentials: true,

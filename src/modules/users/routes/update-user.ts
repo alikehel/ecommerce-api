@@ -1,19 +1,12 @@
+import { createRoute, z } from "@hono/zod-openapi";
+import { eq } from "drizzle-orm";
+
 import { NOT_FOUND, OK, UNPROCESSABLE_ENTITY } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
 import { requestParamsSchema } from "@/lib/request-schemas";
-import {
-    errorResponseSchema,
-    successResponseSchema,
-} from "@/lib/response-schemas";
-import {
-    usersInsertSchema,
-    usersParamsSchema,
-    usersSelectSchema,
-    usersTable,
-} from "@/modules/users/schemas";
+import { errorResponseSchema, successResponseSchema } from "@/lib/response-schemas";
+import { usersInsertSchema, usersParamsSchema, usersSelectSchema, usersTable } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
-import { createRoute, z } from "@hono/zod-openapi";
-import { eq } from "drizzle-orm";
 
 export const updateUserRoute = createRoute({
     tags: ["Users"],
@@ -38,17 +31,12 @@ export const updateUserRoute = createRoute({
             ),
             "User updated",
         ),
-        [UNPROCESSABLE_ENTITY]: jsonContent(
-            errorResponseSchema,
-            "Validation error",
-        ),
+        [UNPROCESSABLE_ENTITY]: jsonContent(errorResponseSchema, "Validation error"),
         [NOT_FOUND]: jsonContent(errorResponseSchema, "User not found"),
     },
 });
 
-export const updateUserHandler: AppRouteHandler<
-    typeof updateUserRoute
-> = async (c) => {
+export const updateUserHandler: AppRouteHandler<typeof updateUserRoute> = async (c) => {
     const pathParams = c.req.valid("param");
     const data = c.req.valid("json");
 

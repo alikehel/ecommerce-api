@@ -1,8 +1,9 @@
-import { type User, usersTable } from "@/modules/users/schemas";
 import { z } from "@hono/zod-openapi";
 import type { InferSelectModel } from "drizzle-orm";
 import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { createSelectSchema } from "drizzle-zod";
+
+import { type User, usersTable } from "@/modules/users/schemas";
 
 export const sessionsTable = sqliteTable("sessions", {
     id: text().primaryKey(),
@@ -27,6 +28,4 @@ export const sessionTokenSchema = sessionSelectSchema
 
 export type Session = InferSelectModel<typeof sessionsTable>;
 
-export type SessionValidationResult =
-    | { session: Session; user: User }
-    | { session: null; user: null };
+export type SessionValidationResult = { session: Session; user: User } | { session: null; user: null };

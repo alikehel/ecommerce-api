@@ -1,12 +1,10 @@
+import { createRoute, z } from "@hono/zod-openapi";
+
 import { NOT_FOUND, OK } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
-import {
-    errorResponseSchema,
-    successResponseSchema,
-} from "@/lib/response-schemas";
+import { errorResponseSchema, successResponseSchema } from "@/lib/response-schemas";
 import { usersSelectSchema } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
-import { createRoute, z } from "@hono/zod-openapi";
 
 export const meRoute = createRoute({
     tags: ["Users"],

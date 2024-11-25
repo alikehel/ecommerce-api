@@ -1,13 +1,11 @@
+import { createRoute, z } from "@hono/zod-openapi";
+
 import { NOT_FOUND, OK } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
 import { requestParamsSchema } from "@/lib/request-schemas";
-import {
-    errorResponseSchema,
-    successResponseSchema,
-} from "@/lib/response-schemas";
+import { errorResponseSchema, successResponseSchema } from "@/lib/response-schemas";
 import { usersParamsSchema, usersSelectSchema } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
-import { createRoute, z } from "@hono/zod-openapi";
 
 export const getUserRoute = createRoute({
     tags: ["Users"],
@@ -35,9 +33,7 @@ export const getUserRoute = createRoute({
     },
 });
 
-export const getUserHandler: AppRouteHandler<typeof getUserRoute> = async (
-    c,
-) => {
+export const getUserHandler: AppRouteHandler<typeof getUserRoute> = async (c) => {
     const pathParams = c.req.valid("param");
 
     const user = await c.var.db.query.usersTable.findFirst({

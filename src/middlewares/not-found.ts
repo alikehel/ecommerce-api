@@ -1,7 +1,8 @@
+import type { NotFoundHandler } from "hono";
+
 import { NOT_FOUND } from "@/lib/http-status-codes";
 import type { errorResponseType } from "@/lib/response-schemas";
 import type { Bindings, Variables } from "@/types/app-bindings";
-import type { NotFoundHandler } from "hono";
 
 export const notFound: NotFoundHandler<{
     Bindings: Bindings;

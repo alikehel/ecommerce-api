@@ -1,4 +1,5 @@
 import { createRouter } from "@/lib/create-app";
+
 import { createUserHandler, createUserRoute } from "./routes/create-user";
 import { deleteUserHandler, deleteUserRoute } from "./routes/delete-user";
 import { getUserHandler, getUserRoute } from "./routes/get-user";

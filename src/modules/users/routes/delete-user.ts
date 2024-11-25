@@ -1,15 +1,13 @@
+import { createRoute, z } from "@hono/zod-openapi";
+import { eq } from "drizzle-orm";
+
 import { NOT_FOUND, OK } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
 import { requestParamsSchema } from "@/lib/request-schemas";
-import {
-    errorResponseSchema,
-    successResponseSchema,
-} from "@/lib/response-schemas";
+import { errorResponseSchema, successResponseSchema } from "@/lib/response-schemas";
 import { usersSelectSchema, usersTable } from "@/modules/users/schemas";
 import { usersParamsSchema } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
-import { createRoute, z } from "@hono/zod-openapi";
-import { eq } from "drizzle-orm";
 
 export const deleteUserRoute = createRoute({
     tags: ["Users"],
@@ -37,20 +35,15 @@ export const deleteUserRoute = createRoute({
     },
 });
 
-export const deleteUserHandler: AppRouteHandler<
-    typeof deleteUserRoute
-> = async (c) => {
+export const deleteUserHandler: AppRouteHandler<typeof deleteUserRoute> = async (c) => {
     const pathParams = c.req.valid("param");
 
-    const [user] = await c.var.db
-        .delete(usersTable)
-        .where(eq(usersTable.id, pathParams.userId))
-        .returning({
-            id: usersTable.id,
-            username: usersTable.username,
-            firstName: usersTable.firstName,
-            lastName: usersTable.lastName,
-        });
+    const [user] = await c.var.db.delete(usersTable).where(eq(usersTable.id, pathParams.userId)).returning({
+        id: usersTable.id,
+        username: usersTable.username,
+        firstName: usersTable.firstName,
+        lastName: usersTable.lastName,
+    });
 
     if (!user) {
         return c.json(

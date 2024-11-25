@@ -11,10 +11,7 @@ export const usersTable = sqliteTable("users", {
     lastName: text().notNull(),
 });
 
-export type User = Pick<
-    InferSelectModel<typeof usersTable>,
-    "id" | "username" | "firstName" | "lastName"
->;
+export type User = Pick<InferSelectModel<typeof usersTable>, "id" | "username" | "firstName" | "lastName">;
 
 export const usersInsertSchema = createInsertSchema(usersTable, {
     username: z

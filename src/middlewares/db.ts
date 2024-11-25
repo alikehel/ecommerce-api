@@ -1,6 +1,7 @@
+import { drizzle } from "drizzle-orm/d1";
+
 import { schema } from "@/db/schema";
 import type { MiddlewareHandler } from "@/types/app-type";
-import { drizzle } from "drizzle-orm/d1";
 
 export const db = (): MiddlewareHandler => {
     return async (c, next) => {

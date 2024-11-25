@@ -1,7 +1,9 @@
-import type { schema } from "@/db/schema";
-import { usersTable } from "@/modules/users/schemas";
 import { eq } from "drizzle-orm";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
+
+import type { schema } from "@/db/schema";
+import { usersTable } from "@/modules/users/schemas";
+
 import { type SessionValidationResult, sessionsTable } from "../schemas";
 import { encodeHexLowerCase } from "./encode-hex-lower-case";
 import { sha256 } from "./sha256";
@@ -10,9 +12,7 @@ export async function validateSessionToken(
     db: DrizzleD1Database<typeof schema>,
     token: string,
 ): Promise<SessionValidationResult> {
-    const sessionId = encodeHexLowerCase(
-        await sha256(new TextEncoder().encode(token)),
-    );
+    const sessionId = encodeHexLowerCase(await sha256(new TextEncoder().encode(token)));
     const result = await db
         .select({ user: usersTable, session: sessionsTable })
         .from(sessionsTable)

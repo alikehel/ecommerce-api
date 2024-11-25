@@ -1,5 +1,6 @@
-import type { ZodSchema } from "@/types/zod-schema";
 import { z } from "@hono/zod-openapi";
+
+import type { ZodSchema } from "@/types/zod-schema";
 
 export const successResponseSchema = <T extends ZodSchema>(schema: T) => {
     return z.object({

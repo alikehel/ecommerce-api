@@ -1,3 +1,6 @@
+import { OpenAPIHono } from "@hono/zod-openapi";
+import { prettyJSON } from "hono/pretty-json";
+
 import { cors } from "@/middlewares/cors";
 import { db } from "@/middlewares/db";
 import { env } from "@/middlewares/env";
@@ -7,8 +10,7 @@ import { onError } from "@/middlewares/on-error";
 import { pinoLogger } from "@/middlewares/pino-logger";
 import { serveEmojiFavicon } from "@/middlewares/serve-emoji-favicon";
 import type { Bindings, Variables } from "@/types/app-bindings";
-import { OpenAPIHono } from "@hono/zod-openapi";
-import { prettyJSON } from "hono/pretty-json";
+
 import defaultHook from "./default-hook";
 
 export const createRouter = () => {

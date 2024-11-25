@@ -1,14 +1,13 @@
-import {} from "@/lib/http-status-codes";
+import { createRoute, z } from "@hono/zod-openapi";
+
+import "@/lib/http-status-codes";
 import { OK, UNAUTHORIZED } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
-import {
-    errorResponseSchema,
-    successResponseSchema,
-} from "@/lib/response-schemas";
+import { errorResponseSchema, successResponseSchema } from "@/lib/response-schemas";
 import { usersInsertSchema, usersSelectSchema } from "@/modules/users/schemas";
 import type {} from "@/types/app-bindings";
 import type { AppRouteHandler } from "@/types/app-type";
-import { createRoute, z } from "@hono/zod-openapi";
+
 import { createSession } from "../lib/create-session";
 import { generateSessionToken } from "../lib/generate-session-token";
 import { verifyPasswordV1 } from "../lib/password";
@@ -53,16 +52,10 @@ export const loginHandler: AppRouteHandler<typeof loginRoute> = async (c) => {
     });
 
     if (!user) {
-        return c.json(
-            { success: false, error: { message: "Invalid credentials" } },
-            UNAUTHORIZED,
-        );
+        return c.json({ success: false, error: { message: "Invalid credentials" } }, UNAUTHORIZED);
     }
 
-    const isValidPassword = await verifyPasswordV1(
-        data.password,
-        user.password,
-    );
+    const isValidPassword = await verifyPasswordV1(data.password, user.password);
 
     if (!isValidPassword) {
         return c.json(

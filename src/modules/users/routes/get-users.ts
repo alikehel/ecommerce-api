@@ -1,3 +1,6 @@
+import { createRoute, z } from "@hono/zod-openapi";
+import { type AnyColumn, and, asc, desc, eq } from "drizzle-orm";
+
 import { NOT_FOUND, OK } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
 import { calculateOffset, calculatePagesCount } from "@/lib/pagination";
@@ -8,14 +11,8 @@ import {
     type paginationResponseType,
     successResponseSchema,
 } from "@/lib/response-schemas";
-import {
-    usersParamsSchema,
-    usersSelectSchema,
-    usersTable,
-} from "@/modules/users/schemas";
+import { usersParamsSchema, usersSelectSchema, usersTable } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
-import { createRoute, z } from "@hono/zod-openapi";
-import { type AnyColumn, and, asc, desc, eq } from "drizzle-orm";
 
 export const getUsersRoute = createRoute({
     tags: ["Users"],
@@ -49,24 +46,17 @@ export const getUsersRoute = createRoute({
     },
 });
 
-export const getUsersHandler: AppRouteHandler<typeof getUsersRoute> = async (
-    c,
-) => {
+export const getUsersHandler: AppRouteHandler<typeof getUsersRoute> = async (c) => {
     const queryParams = c.req.valid("query");
 
     const where = and(
         queryParams.userId ? eq(usersTable.id, queryParams.userId) : undefined,
-        queryParams.firstName
-            ? eq(usersTable.firstName, queryParams.firstName)
-            : undefined,
+        queryParams.firstName ? eq(usersTable.firstName, queryParams.firstName) : undefined,
     );
 
     const totalItemsCount = await c.var.db.$count(usersTable, where);
 
-    const totalPagesCount = calculatePagesCount(
-        totalItemsCount,
-        queryParams.pageSize,
-    );
+    const totalPagesCount = calculatePagesCount(totalItemsCount, queryParams.pageSize);
 
     if (queryParams.page > totalPagesCount) {
         queryParams.page = totalPagesCount;
@@ -83,11 +73,7 @@ export const getUsersHandler: AppRouteHandler<typeof getUsersRoute> = async (
         .where(where)
         .orderBy(
             queryParams.sortingOrder === "asc"
-                ? asc(
-                      usersTable[
-                          queryParams.sortingField as keyof typeof usersTable
-                      ] as AnyColumn,
-                  )
+                ? asc(usersTable[queryParams.sortingField as keyof typeof usersTable] as AnyColumn)
                 : desc(usersTable.id),
         )
         .limit(queryParams.pageSize)
@@ -96,10 +82,7 @@ export const getUsersHandler: AppRouteHandler<typeof getUsersRoute> = async (
     const pagination = {
         currentPage: queryParams.page,
         totalPagesCount: totalPagesCount,
-        itemsPerPage:
-            queryParams.pageSize < totalItemsCount
-                ? queryParams.pageSize
-                : totalItemsCount,
+        itemsPerPage: queryParams.pageSize < totalItemsCount ? queryParams.pageSize : totalItemsCount,
         totalItemsCount: totalItemsCount,
     } satisfies paginationResponseType;
 
