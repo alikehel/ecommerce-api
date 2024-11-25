@@ -1,0 +1,74 @@
+{
+    "name": "@naslook/api",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "db:generate": "pnpm run dotenvx -- drizzle-kit generate",
+        "db:migrate:dev": "pnpm run dotenvx --env ENV=dev -- drizzle-kit migrate",
+        "db:migrate:prod": "pnpm run dotenvx --env ENV=prod -- drizzle-kit migrate",
+        "db:pull": "pnpm run dotenvx -- drizzle-kit pull",
+        "db:push": "pnpm run dotenvx -- drizzle-kit push",
+        "db:studio": "pnpm run dotenvx -- drizzle-kit studio",
+        "db:up": "pnpm run dotenvx -- drizzle-kit up",
+        "deploy": "wrangler deploy --minify",
+        "deploy:prod": "pnpm wrangler deploy --minify --env prod --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA",
+        "deploy:stage": "pnpm wrangler deploy --minify --env stage --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA",
+        "dev": "pnpm wrangler dev --env dev",
+        "dotenvx": "dotenvx run -f .dev.vars",
+        "typecheck": "tsc --noEmit"
+    },
+    "prettier": {
+        "importOrder": [
+            "^(react|next?/?([a-zA-Z/]*))$",
+            "<THIRD_PARTY_MODULES>",
+            "^@/(.*)$",
+            "^[./]"
+        ],
+        "importOrderSeparation": true,
+        "importOrderSortSpecifiers": true,
+        "plugins": [
+            "@trivago/prettier-plugin-sort-imports",
+            "prettier-plugin-tailwindcss",
+            "prettier-plugin-packagejson"
+        ],
+        "printWidth": 120,
+        "semi": true,
+        "singleQuote": false,
+        "tabWidth": 4,
+        "trailingComma": "all"
+    },
+    "dependencies": {
+        "@asteasolutions/zod-to-openapi": "^7.2.0",
+        "@hono/swagger-ui": "^0.4.1",
+        "@hono/zod-openapi": "^0.16.4",
+        "@scalar/hono-api-reference": "^0.5.156",
+        "drizzle-orm": "^0.35.2",
+        "drizzle-zod": "^0.5.1",
+        "hono": "^4.6.4",
+        "hono-pino": "^0.3.0",
+        "pino": "^9.5.0",
+        "ts-case-convert": "^2.1.0",
+        "zod": "^3.23.8",
+        "zod-validation-error": "^3.4.0"
+    },
+    "devDependencies": {
+        "@cloudflare/workers-types": "^4.20240925.0",
+        "@dotenvx/dotenvx": "^1.20.0",
+        "@eslint/js": "^9.14.0",
+        "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+        "better-sqlite3": "^11.5.0",
+        "drizzle-kit": "^0.26.2",
+        "eslint": "^9.14.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-check-file": "^2.8.0",
+        "globals": "^15.12.0",
+        "pino-pretty": "^11.3.0",
+        "prettier": "3.3.3",
+        "prettier-plugin-packagejson": "^2.5.3",
+        "prettier-plugin-tailwindcss": "^0.6.8",
+        "typescript": "^5",
+        "typescript-eslint": "^8.13.0",
+        "wrangler": "^3.79.0"
+    },
+    "packageManager": "pnpm@9.12.1"
+}

@@ -1,0 +1,34 @@
+{
+    "version": "7",
+    "dialect": "sqlite",
+    "entries": [
+        {
+            "idx": 0,
+            "version": "6",
+            "when": 1729516563668,
+            "tag": "0000_sweet_menace",
+            "breakpoints": true
+        },
+        {
+            "idx": 1,
+            "version": "6",
+            "when": 1729516609980,
+            "tag": "0001_wandering_molecule_man",
+            "breakpoints": true
+        },
+        {
+            "idx": 2,
+            "version": "6",
+            "when": 1729692122410,
+            "tag": "0002_bitter_power_man",
+            "breakpoints": true
+        },
+        {
+            "idx": 3,
+            "version": "6",
+            "when": 1730061911325,
+            "tag": "0003_sharp_clint_barton",
+            "breakpoints": true
+        }
+    ]
+}
