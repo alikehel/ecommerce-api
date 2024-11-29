@@ -65,7 +65,8 @@ export const getUsersHandler: AppRouteHandler<typeof getUsersRoute> = async (c) 
     const users = await c.var.db
         .select({
             id: usersTable.id,
-            username: usersTable.username,
+            email: usersTable.email,
+            phone: usersTable.phone,
             firstName: usersTable.firstName,
             lastName: usersTable.lastName,
         })

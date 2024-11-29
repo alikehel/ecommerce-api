@@ -5,3 +5,5 @@ export const schema = {
     sessionsTable,
     usersTable,
 };
+
+export { usersTable, sessionsTable };

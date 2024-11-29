@@ -40,7 +40,8 @@ export const deleteUserHandler: AppRouteHandler<typeof deleteUserRoute> = async 
 
     const [user] = await c.var.db.delete(usersTable).where(eq(usersTable.id, pathParams.userId)).returning({
         id: usersTable.id,
-        username: usersTable.username,
+        email: usersTable.email,
+        phone: usersTable.phone,
         firstName: usersTable.firstName,
         lastName: usersTable.lastName,
     });

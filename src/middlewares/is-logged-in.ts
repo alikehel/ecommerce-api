@@ -56,7 +56,8 @@ export const isLoggedIn = (): MiddlewareHandler => {
 
         c.set("user", {
             id: user.id,
-            username: user.username,
+            email: user.email,
+            phone: user.phone,
             firstName: user.firstName,
             lastName: user.lastName,
             // sessionId: sessionData.id,

@@ -19,7 +19,12 @@ export const registerRoute = createRoute({
     summary: "Register",
     description: "Register",
     request: {
-        body: jsonContent(usersInsertSchema, "User register"),
+        body: {
+            content: {
+                "application/json": { schema: usersInsertSchema },
+            },
+            description: "User Registration",
+        },
     },
     responses: {
         [CREATED]: jsonContent(
@@ -40,7 +45,9 @@ export const registerHandler: AppRouteHandler<typeof registerRoute> = async (c) 
     const db = c.var.db;
 
     const user = await c.var.db.query.usersTable.findFirst({
-        where: (usersTable, { eq }) => eq(usersTable.username, data.username),
+        where: (usersTable, { eq }) => {
+            return data.loginWith === "email" ? eq(usersTable.email, data.email) : eq(usersTable.phone, data.phone);
+        },
     });
 
     if (user) {
@@ -58,14 +65,16 @@ export const registerHandler: AppRouteHandler<typeof registerRoute> = async (c) 
     const [newUser] = await c.var.db
         .insert(usersTable)
         .values({
-            username: data.username,
+            email: data.loginWith === "email" ? data.email : null,
+            phone: data.loginWith === "phone" ? data.phone : null,
             password: await hashPasswordV1(data.password),
             firstName: data.firstName,
             lastName: data.lastName,
         })
         .returning({
             id: usersTable.id,
-            username: usersTable.username,
+            email: usersTable.email,
+            phone: usersTable.phone,
             firstName: usersTable.firstName,
             lastName: usersTable.lastName,
         });

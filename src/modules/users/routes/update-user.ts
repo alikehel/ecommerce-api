@@ -20,7 +20,12 @@ export const updateUserRoute = createRoute({
                 user_id: usersParamsSchema.shape.id,
             }),
         ),
-        body: jsonContent(usersInsertSchema, "User data"),
+        body: {
+            content: {
+                "application/json": { schema: usersInsertSchema },
+            },
+            description: "User data",
+        },
     },
     responses: {
         [OK]: jsonContent(
@@ -43,7 +48,8 @@ export const updateUserHandler: AppRouteHandler<typeof updateUserRoute> = async 
     const [user] = await c.var.db
         .update(usersTable)
         .set({
-            username: data.username,
+            email: data.loginWith === "email" ? data.email : null,
+            phone: data.loginWith === "phone" ? data.phone : null,
             password: data.password,
             firstName: data.firstName,
             lastName: data.lastName,
@@ -51,7 +57,8 @@ export const updateUserHandler: AppRouteHandler<typeof updateUserRoute> = async 
         .where(eq(usersTable.id, pathParams.userId))
         .returning({
             id: usersTable.id,
-            username: usersTable.username,
+            email: usersTable.email,
+            phone: usersTable.phone,
             firstName: usersTable.firstName,
             lastName: usersTable.lastName,
         });

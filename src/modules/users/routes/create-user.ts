@@ -13,7 +13,13 @@ export const createUserRoute = createRoute({
     summary: "Create user",
     description: "Create a new user",
     request: {
-        body: jsonContent(usersInsertSchema, "User data"),
+        body: {
+            content: {
+                "application/json": { schema: usersInsertSchema },
+            },
+            description: "User data",
+        },
+        // body: jsonContent(usersInsertSchema, "User data"),
     },
     responses: {
         [CREATED]: jsonContent(
@@ -35,14 +41,16 @@ export const createUserHandler: AppRouteHandler<typeof createUserRoute> = async 
     const [user] = await c.var.db
         .insert(usersTable)
         .values({
-            username: data.username,
+            email: data.loginWith === "email" ? data.email : null,
+            phone: data.loginWith === "phone" ? data.phone : null,
             password: data.password,
             firstName: data.firstName,
             lastName: data.lastName,
         })
         .returning({
             id: usersTable.id,
-            username: usersTable.username,
+            email: usersTable.email,
+            phone: usersTable.phone,
             firstName: usersTable.firstName,
             lastName: usersTable.lastName,
         });

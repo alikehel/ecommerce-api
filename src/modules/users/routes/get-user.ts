@@ -40,7 +40,8 @@ export const getUserHandler: AppRouteHandler<typeof getUserRoute> = async (c) =>
         where: (usersTable, { eq }) => eq(usersTable.id, pathParams.userId),
         columns: {
             id: true,
-            username: true,
+            email: true,
+            phone: true,
             firstName: true,
             lastName: true,
         },

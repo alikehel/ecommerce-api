@@ -9,7 +9,7 @@ export const sessionsTable = sqliteTable("sessions", {
     id: text().primaryKey(),
     userId: int()
         .notNull()
-        .references(() => usersTable.id),
+        .references(() => usersTable.id, { onDelete: "cascade" }),
     expiresAt: int({
         mode: "timestamp",
     }).notNull(),

@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "db:generate": "pnpm run dotenvx -- drizzle-kit generate",
+        "db:generate": "pnpm run dotenvx --env ENV=prod -- drizzle-kit generate",
         "db:migrate:dev": "pnpm run dotenvx --env ENV=dev -- drizzle-kit migrate",
         "db:migrate:prod": "pnpm run dotenvx --env ENV=prod -- drizzle-kit migrate",
         "db:pull": "pnpm run dotenvx -- drizzle-kit pull",
@@ -13,7 +13,7 @@
         "deploy": "wrangler deploy --minify",
         "deploy:prod": "pnpm wrangler deploy --minify --env prod --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA",
         "deploy:stage": "pnpm wrangler deploy --minify --env stage --var GITHUB_REF_NAME:$GITHUB_REF_NAME --var GITHUB_SHA:$GITHUB_SHA",
-        "dev": "pnpm wrangler dev --env dev",
+        "dev": "pnpm wrangler dev --env dev --remote",
         "dotenvx": "dotenvx run -f .dev.vars",
         "format": "prettier --check .",
         "format:fix": "prettier --write .",

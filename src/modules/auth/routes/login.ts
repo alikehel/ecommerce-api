@@ -4,7 +4,7 @@ import "@/lib/http-status-codes";
 import { OK, UNAUTHORIZED } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
 import { errorResponseSchema, successResponseSchema } from "@/lib/response-schemas";
-import { usersInsertSchema, usersSelectSchema } from "@/modules/users/schemas";
+import { usersLoginSchema, usersSelectSchema } from "@/modules/users/schemas";
 import type {} from "@/types/app-bindings";
 import type { AppRouteHandler } from "@/types/app-type";
 
@@ -21,13 +21,12 @@ export const loginRoute = createRoute({
     summary: "Login",
     description: "Login",
     request: {
-        body: jsonContent(
-            usersInsertSchema.pick({
-                username: true,
-                password: true,
-            }),
-            "User login",
-        ),
+        body: {
+            content: {
+                "application/json": { schema: usersLoginSchema },
+            },
+            description: "User login",
+        },
     },
     responses: {
         [OK]: jsonContent(
@@ -48,7 +47,9 @@ export const loginHandler: AppRouteHandler<typeof loginRoute> = async (c) => {
     const db = c.var.db;
 
     const user = await c.var.db.query.usersTable.findFirst({
-        where: (usersTable, { eq }) => eq(usersTable.username, data.username),
+        where: (usersTable, { eq }) => {
+            return data.loginWith === "email" ? eq(usersTable.email, data.email) : eq(usersTable.phone, data.phone);
+        },
     });
 
     if (!user) {
@@ -80,7 +81,8 @@ export const loginHandler: AppRouteHandler<typeof loginRoute> = async (c) => {
             data: {
                 user: {
                     id: user.id,
-                    username: user.username,
+                    email: user.email,
+                    phone: user.phone,
                     firstName: user.firstName,
                     lastName: user.lastName,
                 },
