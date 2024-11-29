@@ -44,6 +44,8 @@ export const getUserHandler: AppRouteHandler<typeof getUserRoute> = async (c) =>
             phone: true,
             firstName: true,
             lastName: true,
+            role: true,
+            verified: true,
         },
     });
 

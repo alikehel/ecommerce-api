@@ -61,6 +61,8 @@ export const updateUserHandler: AppRouteHandler<typeof updateUserRoute> = async 
             phone: usersTable.phone,
             firstName: usersTable.firstName,
             lastName: usersTable.lastName,
+            role: usersTable.role,
+            verified: usersTable.verified,
         });
 
     if (!user) {

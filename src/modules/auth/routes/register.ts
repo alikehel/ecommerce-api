@@ -77,6 +77,8 @@ export const registerHandler: AppRouteHandler<typeof registerRoute> = async (c) 
             phone: usersTable.phone,
             firstName: usersTable.firstName,
             lastName: usersTable.lastName,
+            role: usersTable.role,
+            verified: usersTable.verified,
         });
 
     const token = generateSessionToken();

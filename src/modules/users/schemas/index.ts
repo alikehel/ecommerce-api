@@ -23,7 +23,10 @@ export const usersTable = sqliteTable(
     }),
 );
 
-export type User = Pick<InferSelectModel<typeof usersTable>, "id" | "email" | "phone" | "firstName" | "lastName">;
+export type User = Pick<
+    InferSelectModel<typeof usersTable>,
+    "id" | "email" | "phone" | "firstName" | "lastName" | "role" | "verified"
+>;
 
 export const usersInsertSchemaCommon = createInsertSchema(usersTable, {
     // email: z.string().email().optional(),
@@ -40,6 +43,8 @@ export const usersInsertSchemaCommon = createInsertSchema(usersTable, {
     id: true,
     email: true,
     phone: true,
+    role: true,
+    verified: true,
 });
 
 export const usersInsertSchema = z
@@ -77,11 +82,9 @@ export const usersUpdateSchema = z
         email: z.string().email().optional(),
         phone: z.string().optional(),
     })
-    .and(usersInsertSchemaCommon);
+    .and(usersInsertSchemaCommon.partial());
 
-export const usersSelectSchema = createSelectSchema(usersTable, {
-    role: z.enum(["user", "admin"]),
-}).omit({
+export const usersSelectSchema = createSelectSchema(usersTable, {}).omit({
     password: true,
 });
 
