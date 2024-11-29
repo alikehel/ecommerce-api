@@ -70,6 +70,13 @@ export const usersLoginSchema = z
         }),
     );
 
+export const usersUpdateSchema = z
+    .object({
+        email: z.string().email().optional(),
+        phone: z.string().optional(),
+    })
+    .and(usersInsertSchemaCommon);
+
 export const usersSelectSchema = createSelectSchema(usersTable).omit({
     password: true,
 });

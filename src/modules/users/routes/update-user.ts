@@ -5,7 +5,7 @@ import { NOT_FOUND, OK, UNPROCESSABLE_ENTITY } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
 import { requestParamsSchema } from "@/lib/request-schemas";
 import { errorResponseSchema, successResponseSchema } from "@/lib/response-schemas";
-import { usersInsertSchema, usersParamsSchema, usersSelectSchema, usersTable } from "@/modules/users/schemas";
+import { usersParamsSchema, usersSelectSchema, usersTable, usersUpdateSchema } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
 
 export const updateUserRoute = createRoute({
@@ -22,7 +22,7 @@ export const updateUserRoute = createRoute({
         ),
         body: {
             content: {
-                "application/json": { schema: usersInsertSchema },
+                "application/json": { schema: usersUpdateSchema },
             },
             description: "User data",
         },
@@ -48,8 +48,8 @@ export const updateUserHandler: AppRouteHandler<typeof updateUserRoute> = async 
     const [user] = await c.var.db
         .update(usersTable)
         .set({
-            email: data.loginWith === "email" ? data.email : null,
-            phone: data.loginWith === "phone" ? data.phone : null,
+            email: data.email,
+            phone: data.phone,
             password: data.password,
             firstName: data.firstName,
             lastName: data.lastName,
