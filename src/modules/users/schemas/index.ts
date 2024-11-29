@@ -12,6 +12,8 @@ export const usersTable = sqliteTable(
         password: text().notNull(),
         firstName: text().notNull(),
         lastName: text().notNull(),
+        role: text().default("user"),
+        verified: int({ mode: "boolean" }).default(false),
     },
     (table) => ({
         checkConstraint: check(
@@ -77,7 +79,9 @@ export const usersUpdateSchema = z
     })
     .and(usersInsertSchemaCommon);
 
-export const usersSelectSchema = createSelectSchema(usersTable).omit({
+export const usersSelectSchema = createSelectSchema(usersTable, {
+    role: z.enum(["user", "admin"]),
+}).omit({
     password: true,
 });
 
