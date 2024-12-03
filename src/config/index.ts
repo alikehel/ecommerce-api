@@ -21,7 +21,7 @@ const EnvSchema = z
         LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]).optional().default("debug"),
         CLOUDFLARE_ACCOUNT_ID: z.string(),
         CLOUDFLARE_DATABASE_ID: z.string().optional(),
-        CLOUDFLARE_D1_TOKEN: z.string().optional(),
+        CLOUDFLARE_API_TOKEN: z.string().optional(),
         ALLOWED_HOST: z.string(),
         GITHUB_REF_NAME: z.string().optional(),
         GITHUB_SHA: z.string().optional(),
@@ -37,12 +37,12 @@ const EnvSchema = z
                 message: "Must be set when ENV is 'prod'",
             });
         }
-        if (input.ENV === "prod" && !input.CLOUDFLARE_D1_TOKEN) {
+        if (input.ENV === "prod" && !input.CLOUDFLARE_API_TOKEN) {
             ctx.addIssue({
                 code: z.ZodIssueCode.invalid_type,
                 expected: "string",
                 received: "undefined",
-                path: ["CLOUDFLARE_D1_TOKEN"],
+                path: ["CLOUDFLARE_API_TOKEN"],
                 message: "Must be set when ENV is 'prod'",
             });
         }
