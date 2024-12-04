@@ -14,6 +14,9 @@ export const usersTable = sqliteTable(
         lastName: text().notNull(),
         role: text().default("user"),
         verified: int({ mode: "boolean" }).default(false),
+        kycCardFront: text(),
+        kycCardBack: text(),
+        kycSelfie: text(),
     },
     (table) => ({
         checkConstraint: check(

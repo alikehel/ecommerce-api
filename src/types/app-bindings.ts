@@ -7,6 +7,7 @@ import type { User } from "@/modules/users/schemas";
 
 export type Bindings = Environment & {
     DB: D1Database;
+    BUCKET: R2Bucket;
 };
 
 export type Variables = {

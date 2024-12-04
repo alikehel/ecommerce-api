@@ -9,21 +9,21 @@ import type { MiddlewareHandler } from "@/types/app-type";
 export const isLoggedIn = (): MiddlewareHandler => {
     return async (c, next) => {
         // csrf protection
-        if (c.req.method !== "GET") {
-            const origin = c.req.header("Origin");
-            // You can also compare it against the Host or X-Forwarded-Host header.
-            if (origin === null || origin === undefined || origin !== new URL(c.req.url).origin) {
-                return c.json(
-                    {
-                        success: false,
-                        error: {
-                            message: "Invalid origin",
-                        },
-                    },
-                    UNAUTHORIZED,
-                );
-            }
-        }
+        // if (c.req.method !== "GET") {
+        //     const origin = c.req.header("Origin");
+        //     // You can also compare it against the Host or X-Forwarded-Host header.
+        //     if (origin === null || origin === undefined || origin !== new URL(c.req.url).origin) {
+        //         return c.json(
+        //             {
+        //                 success: false,
+        //                 error: {
+        //                     message: "Invalid origin",
+        //                 },
+        //             },
+        //             UNAUTHORIZED,
+        //         );
+        //     }
+        // }
 
         const token = getCookie(c, "session");
 

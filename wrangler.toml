@@ -9,6 +9,9 @@ vars = { ALLOWED_HOST = "*", ENV = "dev", LOG_LEVEL = "debug" }
 d1_databases = [
     { binding = "DB", database_name = "naslook-db-prod", database_id = "10dcfedc-1354-43df-a47b-12f9a4691971", migrations_dir = "src/db/migrations" },
 ]
+r2_buckets = [
+    { binding = "BUCKET", bucket_name = "naslook-bucket-dev", preview_bucket_name = "naslook-bucket-dev" }
+]
 
 [env.stage]
 name = "naslook-api-stage"
@@ -17,6 +20,9 @@ vars = { ALLOWED_HOST = "*", ENV = "stage", LOG_LEVEL = "debug" }
 d1_databases = [
     { binding = "DB", database_name = "naslook-db-prod", database_id = "10dcfedc-1354-43df-a47b-12f9a4691971", migrations_dir = "src/db/migrations" },
 ]
+r2_buckets = [
+    { binding = "BUCKET", bucket_name = "naslook-bucket-stage" }
+]
 
 [env.prod]
 name = "naslook-api-prod"
@@ -24,6 +30,9 @@ workers_dev = true
 vars = { ALLOWED_HOST = "*", ENV = "prod", LOG_LEVEL = "info" }
 d1_databases = [
     { binding = "DB", database_name = "naslook-db-prod", database_id = "10dcfedc-1354-43df-a47b-12f9a4691971", migrations_dir = "src/db/migrations" },
+]
+r2_buckets = [
+    { binding = "BUCKET", bucket_name = "naslook-bucket-prod" }
 ]
 
 [observability]
