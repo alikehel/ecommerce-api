@@ -8,7 +8,7 @@ import { profileUpdateSchema, usersSelectSchema, usersTable } from "@/modules/us
 import type { AppRouteHandler } from "@/types/app-type";
 
 export const updateProfileRoute = createRoute({
-    tags: ["Users"],
+    tags: ["Users' Profile"],
     method: "patch",
     path: "/api/v1/users/me",
     summary: "Update Profile",

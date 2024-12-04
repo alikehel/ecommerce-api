@@ -8,7 +8,7 @@ import { usersSelectSchema, usersTable } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
 
 export const updateProfileAvatarRoute = createRoute({
-    tags: ["Users"],
+    tags: ["Users' Profile"],
     method: "patch",
     path: "/api/v1/users/me/avatar",
     summary: "Update Profile Avatar",

@@ -9,7 +9,7 @@ import { usersInsertSchemaCommon, usersSelectSchema, usersTable } from "@/module
 import type { AppRouteHandler } from "@/types/app-type";
 
 export const changePasswordRoute = createRoute({
-    tags: ["Users"],
+    tags: ["Users' Profile"],
     method: "patch",
     path: "/api/v1/users/me/password",
     summary: "Update Password",

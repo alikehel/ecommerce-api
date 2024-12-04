@@ -7,7 +7,7 @@ import { usersSelectSchema } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
 
 export const getProfileRoute = createRoute({
-    tags: ["Users"],
+    tags: ["Users' Profile"],
     method: "get",
     path: "/api/v1/users/me",
     summary: "Get Profile",
