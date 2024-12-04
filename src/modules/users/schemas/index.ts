@@ -33,8 +33,6 @@ export type User = Pick<
 >;
 
 export const usersInsertSchemaCommon = createInsertSchema(usersTable, {
-    // email: z.string().email().optional(),
-    // phone: z.string().optional(),
     password: z
         .string()
         .regex(
@@ -49,6 +47,10 @@ export const usersInsertSchemaCommon = createInsertSchema(usersTable, {
     phone: true,
     role: true,
     verified: true,
+    kycCardFront: true,
+    kycCardBack: true,
+    kycSelfie: true,
+    balance: true,
 });
 
 export const usersInsertSchema = z
@@ -87,6 +89,11 @@ export const usersUpdateSchema = z
         phone: z.string().optional(),
     })
     .and(usersInsertSchemaCommon.partial());
+
+export const profileUpdateSchema = createInsertSchema(usersTable).pick({
+    firstName: true,
+    lastName: true,
+});
 
 export const usersSelectSchema = createSelectSchema(usersTable, {}).omit({
     password: true,

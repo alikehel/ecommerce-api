@@ -6,12 +6,12 @@ import { errorResponseSchema, successResponseSchema } from "@/lib/response-schem
 import { usersSelectSchema } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
 
-export const meRoute = createRoute({
+export const getProfileRoute = createRoute({
     tags: ["Users"],
     method: "get",
     path: "/api/v1/users/me",
-    summary: "Get current user",
-    description: "Get the current user",
+    summary: "Get Profile",
+    description: "Get Profile of the current user",
     responses: {
         [OK]: jsonContent(
             successResponseSchema(
@@ -25,7 +25,7 @@ export const meRoute = createRoute({
     },
 });
 
-export const meHandler: AppRouteHandler<typeof meRoute> = async (c) => {
+export const getProfileHandler: AppRouteHandler<typeof getProfileRoute> = async (c) => {
     const user = c.var.user;
 
     if (!user) {
