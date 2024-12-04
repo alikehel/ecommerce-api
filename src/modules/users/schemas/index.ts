@@ -17,6 +17,7 @@ export const usersTable = sqliteTable(
         kycCardFront: text(),
         kycCardBack: text(),
         kycSelfie: text(),
+        balance: int().notNull().default(0),
     },
     (table) => ({
         checkConstraint: check(
@@ -92,6 +93,7 @@ export const usersSelectSchema = createSelectSchema(usersTable, {}).omit({
     kycCardFront: true,
     kycCardBack: true,
     kycSelfie: true,
+    balance: true,
 });
 
 export const usersParamsSchema = createSelectSchema(usersTable, {

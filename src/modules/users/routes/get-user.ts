@@ -24,7 +24,7 @@ export const getUserRoute = createRoute({
         [OK]: jsonContent(
             successResponseSchema(
                 z.object({
-                    user: usersSelectSchema,
+                    user: usersSelectSchema.and(z.object({ balance: z.number() })),
                 }),
             ),
             "Get user",
@@ -46,6 +46,7 @@ export const getUserHandler: AppRouteHandler<typeof getUserRoute> = async (c) =>
             lastName: true,
             role: true,
             verified: true,
+            balance: true,
         },
     });
 

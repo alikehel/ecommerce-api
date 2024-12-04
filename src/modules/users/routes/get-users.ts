@@ -36,7 +36,7 @@ export const getUsersRoute = createRoute({
         [OK]: jsonContent(
             successResponseSchema(
                 z.object({
-                    users: z.array(usersSelectSchema),
+                    users: z.array(usersSelectSchema.and(z.object({ balance: z.number() }))),
                     pagination: paginationResponseSchema,
                 }),
             ),
@@ -71,6 +71,7 @@ export const getUsersHandler: AppRouteHandler<typeof getUsersRoute> = async (c) 
             lastName: usersTable.lastName,
             role: usersTable.role,
             verified: usersTable.verified,
+            balance: usersTable.balance,
         })
         .from(usersTable)
         .where(where)
