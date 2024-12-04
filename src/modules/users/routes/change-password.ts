@@ -91,6 +91,7 @@ export const changePasswordHandler: AppRouteHandler<typeof changePasswordRoute> 
             lastName: usersTable.lastName,
             role: usersTable.role,
             verified: usersTable.verified,
+            avatar: usersTable.avatar,
         });
 
     if (!user) {

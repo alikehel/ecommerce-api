@@ -126,6 +126,7 @@ export const uploadKYCDocumentsHandler: AppRouteHandler<typeof uploadKYCDocument
             kycCardFront: usersTable.kycCardFront,
             kycCardBack: usersTable.kycCardBack,
             kycSelfie: usersTable.kycSelfie,
+            avatar: usersTable.avatar,
         });
 
     return c.json(

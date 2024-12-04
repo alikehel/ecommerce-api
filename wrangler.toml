@@ -5,7 +5,7 @@ compatibility_flags = ["nodejs_compat"]
 minify = true
 
 [env.dev]
-vars = { ALLOWED_HOST = "*", ENV = "dev", LOG_LEVEL = "debug" }
+vars = { ALLOWED_HOST = "*", ENV = "dev", LOG_LEVEL = "debug", BUCKET_URL = "https://dev.bucket.naslook.com" }
 d1_databases = [
     { binding = "DB", database_name = "naslook-db-prod", database_id = "10dcfedc-1354-43df-a47b-12f9a4691971", migrations_dir = "src/db/migrations" },
 ]
@@ -16,7 +16,7 @@ r2_buckets = [
 [env.stage]
 name = "naslook-api-stage"
 workers_dev = true
-vars = { ALLOWED_HOST = "*", ENV = "stage", LOG_LEVEL = "debug" }
+vars = { ALLOWED_HOST = "*", ENV = "stage", LOG_LEVEL = "debug", BUCKET_URL = "https://stage.bucket.naslook.com" }
 d1_databases = [
     { binding = "DB", database_name = "naslook-db-prod", database_id = "10dcfedc-1354-43df-a47b-12f9a4691971", migrations_dir = "src/db/migrations" },
 ]
@@ -27,7 +27,7 @@ r2_buckets = [
 [env.prod]
 name = "naslook-api-prod"
 workers_dev = true
-vars = { ALLOWED_HOST = "*", ENV = "prod", LOG_LEVEL = "info" }
+vars = { ALLOWED_HOST = "*", ENV = "prod", LOG_LEVEL = "info", BUCKET_URL = "https://bucket.naslook.com" }
 d1_databases = [
     { binding = "DB", database_name = "naslook-db-prod", database_id = "10dcfedc-1354-43df-a47b-12f9a4691971", migrations_dir = "src/db/migrations" },
 ]

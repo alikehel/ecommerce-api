@@ -4,21 +4,30 @@ import { eq } from "drizzle-orm";
 import { NOT_FOUND, OK, UNPROCESSABLE_ENTITY } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
 import { errorResponseSchema, successResponseSchema } from "@/lib/response-schemas";
-import { profileUpdateSchema, usersSelectSchema, usersTable } from "@/modules/users/schemas";
+import { usersSelectSchema, usersTable } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
 
-export const updateProfileRoute = createRoute({
+export const updateProfileAvatarRoute = createRoute({
     tags: ["Users"],
     method: "patch",
-    path: "/api/v1/users/me",
-    summary: "Update Profile",
-    description: "Update Profile",
+    path: "/api/v1/users/me/avatar",
+    summary: "Update Profile Avatar",
+    description: "Update Profile Avatar",
     request: {
         body: {
             content: {
-                "application/json": { schema: profileUpdateSchema },
+                "multipart/form-data": {
+                    schema: z.object({
+                        avatar: z
+                            .custom<File>((v) => v instanceof File)
+                            .openapi({
+                                type: "string",
+                                format: "binary",
+                            }),
+                    }),
+                },
             },
-            description: "User data",
+            description: "User Profile Avatar",
         },
     },
     responses: {
@@ -28,21 +37,38 @@ export const updateProfileRoute = createRoute({
                     user: usersSelectSchema,
                 }),
             ),
-            "User updated",
+            "User Profile Avatar Updated Successfully",
         ),
         [UNPROCESSABLE_ENTITY]: jsonContent(errorResponseSchema, "Validation error"),
         [NOT_FOUND]: jsonContent(errorResponseSchema, "User not found"),
     },
 });
 
-export const updateProfileHandler: AppRouteHandler<typeof updateProfileRoute> = async (c) => {
-    const data = c.req.valid("json");
+export const updateProfileAvatarHandler: AppRouteHandler<typeof updateProfileAvatarRoute> = async (c) => {
+    const data = c.req.valid("form");
+    const bucketUrl = c.env.BUCKET_URL;
+
+    // Only allow picture files
+    const avatarExtension = data.avatar.name.split(".").pop();
+    if (!avatarExtension || !["jpg", "jpeg", "png"].includes(avatarExtension)) {
+        return c.json(
+            {
+                success: false,
+                error: {
+                    message: "Invalid file type",
+                },
+            },
+            UNPROCESSABLE_ENTITY,
+        );
+    }
+
+    const avatarKey = `avatars/${c.var.user.id}/avatar.${data.avatar.name.split(".").pop()}`;
+    await c.env.BUCKET.put(avatarKey, data.avatar);
 
     const [user] = await c.var.db
         .update(usersTable)
         .set({
-            firstName: data.firstName,
-            lastName: data.lastName,
+            avatar: `${bucketUrl}/${avatarKey}`,
         })
         .where(eq(usersTable.id, c.var.user.id))
         .returning({

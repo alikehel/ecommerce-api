@@ -46,6 +46,7 @@ export const deleteUserHandler: AppRouteHandler<typeof deleteUserRoute> = async 
         lastName: usersTable.lastName,
         role: usersTable.role,
         verified: usersTable.verified,
+        avatar: usersTable.avatar,
     });
 
     if (!user) {

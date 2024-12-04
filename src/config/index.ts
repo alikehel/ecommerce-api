@@ -25,6 +25,7 @@ const EnvSchema = z
         ALLOWED_HOST: z.string(),
         GITHUB_REF_NAME: z.string().optional(),
         GITHUB_SHA: z.string().optional(),
+        BUCKET_URL: z.string().optional(),
     })
     .passthrough()
     .superRefine((input, ctx) => {

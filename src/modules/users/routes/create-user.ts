@@ -55,6 +55,7 @@ export const createUserHandler: AppRouteHandler<typeof createUserRoute> = async 
             lastName: usersTable.lastName,
             role: usersTable.role,
             verified: usersTable.verified,
+            avatar: usersTable.avatar,
         });
 
     return c.json({ success: true, data: { user: user } }, CREATED);

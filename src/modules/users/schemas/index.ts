@@ -13,6 +13,7 @@ export const usersTable = sqliteTable(
         firstName: text().notNull(),
         lastName: text().notNull(),
         role: text().default("user"),
+        avatar: text(),
         verified: int({ mode: "boolean" }).default(false),
         kycCardFront: text(),
         kycCardBack: text(),
@@ -29,7 +30,7 @@ export const usersTable = sqliteTable(
 
 export type User = Pick<
     InferSelectModel<typeof usersTable>,
-    "id" | "email" | "phone" | "firstName" | "lastName" | "role" | "verified"
+    "id" | "email" | "phone" | "firstName" | "lastName" | "role" | "verified" | "avatar"
 >;
 
 export const usersInsertSchemaCommon = createInsertSchema(usersTable, {

@@ -72,6 +72,7 @@ export const getUsersHandler: AppRouteHandler<typeof getUsersRoute> = async (c) 
             role: usersTable.role,
             verified: usersTable.verified,
             balance: usersTable.balance,
+            avatar: usersTable.avatar,
         })
         .from(usersTable)
         .where(where)
