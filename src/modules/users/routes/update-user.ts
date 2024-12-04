@@ -12,7 +12,7 @@ export const updateUserRoute = createRoute({
     tags: ["Users"],
     method: "patch",
     path: "/api/v1/users/{user_id}",
-    summary: "Update user",
+    summary: "Update User",
     description: "Update user by id",
     request: {
         params: requestParamsSchema(

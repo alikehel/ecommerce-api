@@ -13,7 +13,7 @@ export const deleteUserRoute = createRoute({
     tags: ["Users"],
     method: "delete",
     path: "/api/v1/users/{user_id}",
-    summary: "Delete user",
+    summary: "Delete User",
     description: "Delete user by id",
     request: {
         params: requestParamsSchema(

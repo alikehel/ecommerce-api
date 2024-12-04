@@ -1,5 +1,6 @@
 import { createRouter } from "@/lib/create-app";
 
+import { changePasswordHandler, changePasswordRoute } from "./routes/change-password";
 import { createUserHandler, createUserRoute } from "./routes/create-user";
 import { deleteUserHandler, deleteUserRoute } from "./routes/delete-user";
 import { getProfileHandler, getProfileRoute } from "./routes/get-profile";
@@ -10,9 +11,10 @@ import { updateUserHandler, updateUserRoute } from "./routes/update-user";
 
 export const usersRouter = createRouter()
     .openapi(getProfileRoute, getProfileHandler)
-    .openapi(createUserRoute, createUserHandler)
-    .openapi(deleteUserRoute, deleteUserHandler)
-    .openapi(getUserRoute, getUserHandler)
-    .openapi(getUsersRoute, getUsersHandler)
     .openapi(updateProfileRoute, updateProfileHandler)
-    .openapi(updateUserRoute, updateUserHandler);
+    .openapi(changePasswordRoute, changePasswordHandler)
+    .openapi(createUserRoute, createUserHandler)
+    .openapi(getUsersRoute, getUsersHandler)
+    .openapi(getUserRoute, getUserHandler)
+    .openapi(updateUserRoute, updateUserHandler)
+    .openapi(deleteUserRoute, deleteUserHandler);

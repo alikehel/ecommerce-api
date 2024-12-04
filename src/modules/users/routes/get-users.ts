@@ -18,7 +18,7 @@ export const getUsersRoute = createRoute({
     tags: ["Users"],
     method: "get",
     path: "/api/v1/users",
-    summary: "Get all users",
+    summary: "Get All Users",
     description: "Get all users",
     request: {
         query: requestParamsWithPaginationSchema(

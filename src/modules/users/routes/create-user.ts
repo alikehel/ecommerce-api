@@ -10,7 +10,7 @@ export const createUserRoute = createRoute({
     tags: ["Users"],
     method: "post",
     path: "/api/v1/users",
-    summary: "Create user",
+    summary: "Create User",
     description: "Create a new user",
     request: {
         body: {
