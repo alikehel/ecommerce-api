@@ -89,6 +89,9 @@ export const usersUpdateSchema = z
 
 export const usersSelectSchema = createSelectSchema(usersTable, {}).omit({
     password: true,
+    kycCardFront: true,
+    kycCardBack: true,
+    kycSelfie: true,
 });
 
 export const usersParamsSchema = createSelectSchema(usersTable, {
