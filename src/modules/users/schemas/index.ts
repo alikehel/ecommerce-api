@@ -1,33 +1,8 @@
 import { z } from "@hono/zod-openapi";
-import { type InferSelectModel, sql } from "drizzle-orm";
-import { check, int, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { type InferSelectModel } from "drizzle-orm";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
-export const usersTable = sqliteTable(
-    "users",
-    {
-        id: int().primaryKey({ autoIncrement: true }),
-        email: text().unique(),
-        phone: text().unique(),
-        password: text().notNull(),
-        firstName: text().notNull(),
-        lastName: text().notNull(),
-        role: text().$type<"user" | "admin">().default("user").notNull(),
-        avatar: text(),
-        verified: int({ mode: "boolean" }).default(false),
-        kycCardFront: text(),
-        kycCardBack: text(),
-        kycSelfie: text(),
-        balance: int().notNull().default(0),
-        globalId: text().unique(),
-    },
-    (table) => ({
-        checkConstraint: check(
-            "one_of_email_or_phone_not_null",
-            sql`${table.email} IS NOT NULL OR ${table.phone} IS NOT NULL`,
-        ),
-    }),
-);
+import { usersTable } from "@/db/schema";
 
 export type User = Pick<
     InferSelectModel<typeof usersTable>,

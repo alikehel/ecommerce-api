@@ -1,19 +1,9 @@
 import { z } from "@hono/zod-openapi";
 import type { InferSelectModel } from "drizzle-orm";
-import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { createSelectSchema } from "drizzle-zod";
 
-import { type User, usersTable } from "@/modules/users/schemas";
-
-export const sessionsTable = sqliteTable("sessions", {
-    id: text().primaryKey(),
-    userId: int()
-        .notNull()
-        .references(() => usersTable.id, { onDelete: "cascade" }),
-    expiresAt: int({
-        mode: "timestamp",
-    }).notNull(),
-});
+import { sessionsTable } from "@/db/schema";
+import { type User } from "@/modules/users/schemas";
 
 export const sessionSelectSchema = createSelectSchema(sessionsTable);
 
