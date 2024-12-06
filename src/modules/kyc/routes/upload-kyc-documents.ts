@@ -1,10 +1,11 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { eq } from "drizzle-orm";
 
+import { usersTable } from "@/db/schema";
 import { CREATED, UNPROCESSABLE_ENTITY } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
 import { errorResponseSchema, successResponseSchema } from "@/lib/response-schemas";
-import { usersSelectSchema, usersTable } from "@/modules/users/schemas";
+import { usersSelectSchema } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
 
 export const uploadKYCDocumentsRoute = createRoute({
@@ -128,6 +129,9 @@ export const uploadKYCDocumentsHandler: AppRouteHandler<typeof uploadKYCDocument
             kycSelfie: usersTable.kycSelfie,
             avatar: usersTable.avatar,
             globalId: usersTable.globalId,
+            createdAt: usersTable.createdAt,
+            updatedAt: usersTable.updatedAt,
+            deletedAt: usersTable.deletedAt,
         });
 
     return c.json(

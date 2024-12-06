@@ -13,13 +13,14 @@ export const usersTable = sqliteTable(
         firstName: text().notNull(),
         lastName: text().notNull(),
         role: text().$type<"user" | "admin">().default("user").notNull(),
-        avatar: text(),
-        verified: int({ mode: "boolean" }).default(false),
-        kycCardFront: text(),
-        kycCardBack: text(),
-        kycSelfie: text(),
+        avatar: text().notNull().default(""),
+        verified: int({ mode: "boolean" }).default(false).notNull(),
+        kycCardFront: text().notNull().default(""),
+        kycCardBack: text().notNull().default(""),
+        kycSelfie: text().notNull().default(""),
         balance: int().notNull().default(0),
         globalId: text().unique(),
+        ...timestamps,
     },
     (table) => ({
         checkConstraint: check(
@@ -37,6 +38,7 @@ export const sessionsTable = sqliteTable("sessions", {
     expiresAt: int({
         mode: "timestamp",
     }).notNull(),
+    ...timestamps,
 });
 
 export const productsTable = sqliteTable("products", {

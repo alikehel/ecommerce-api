@@ -1,8 +1,8 @@
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
-import type { schema } from "@/db/schema";
+import { type schema, sessionsTable } from "@/db/schema";
 
-import { type Session, sessionsTable } from "../schemas";
+import { type Session } from "../schemas";
 import { encodeHexLowerCase } from "./encode-hex-lower-case";
 import { sha256 } from "./sha256";
 

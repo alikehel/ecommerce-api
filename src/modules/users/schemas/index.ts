@@ -4,9 +4,21 @@ import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 
 import { usersTable } from "@/db/schema";
 
+// TODO: Remove unnecessary fields
 export type User = Pick<
     InferSelectModel<typeof usersTable>,
-    "id" | "email" | "phone" | "firstName" | "lastName" | "role" | "verified" | "avatar" | "globalId"
+    | "id"
+    | "email"
+    | "phone"
+    | "firstName"
+    | "lastName"
+    | "role"
+    | "verified"
+    | "avatar"
+    | "globalId"
+    | "createdAt"
+    | "updatedAt"
+    | "deletedAt"
 >;
 
 export const usersInsertSchemaCommon = createInsertSchema(usersTable, {

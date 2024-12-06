@@ -1,6 +1,7 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { type AnyColumn, and, asc, desc, eq } from "drizzle-orm";
 
+import { usersTable } from "@/db/schema";
 import { NOT_FOUND, OK } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
 import { calculateOffset, calculatePagesCount } from "@/lib/pagination";
@@ -11,7 +12,7 @@ import {
     type paginationResponseType,
     successResponseSchema,
 } from "@/lib/response-schemas";
-import { usersParamsSchema, usersSelectSchema, usersTable } from "@/modules/users/schemas";
+import { usersParamsSchema, usersSelectSchema } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
 
 export const getUsersRoute = createRoute({
@@ -74,6 +75,9 @@ export const getUsersHandler: AppRouteHandler<typeof getUsersRoute> = async (c) 
             balance: usersTable.balance,
             avatar: usersTable.avatar,
             globalId: usersTable.globalId,
+            createdAt: usersTable.createdAt,
+            updatedAt: usersTable.updatedAt,
+            deletedAt: usersTable.deletedAt,
         })
         .from(usersTable)
         .where(where)

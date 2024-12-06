@@ -1,11 +1,12 @@
 import { createRoute, z } from "@hono/zod-openapi";
 import { eq } from "drizzle-orm";
 
+import { usersTable } from "@/db/schema";
 import { NOT_FOUND, OK } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
 import { requestParamsSchema } from "@/lib/request-schemas";
 import { errorResponseSchema, successResponseSchema } from "@/lib/response-schemas";
-import { usersSelectSchema, usersTable } from "@/modules/users/schemas";
+import { usersSelectSchema } from "@/modules/users/schemas";
 import { usersParamsSchema } from "@/modules/users/schemas";
 import type { AppRouteHandler } from "@/types/app-type";
 
@@ -48,6 +49,9 @@ export const deleteUserHandler: AppRouteHandler<typeof deleteUserRoute> = async 
         verified: usersTable.verified,
         avatar: usersTable.avatar,
         globalId: usersTable.globalId,
+        createdAt: usersTable.createdAt,
+        updatedAt: usersTable.updatedAt,
+        deletedAt: usersTable.deletedAt,
     });
 
     if (!user) {

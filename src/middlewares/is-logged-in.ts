@@ -54,6 +54,7 @@ export const isLoggedIn = (): MiddlewareHandler => {
             );
         }
 
+        // TODO: Remove unnecessary data
         c.set("user", {
             id: user.id,
             email: user.email,
@@ -64,6 +65,9 @@ export const isLoggedIn = (): MiddlewareHandler => {
             verified: user.verified,
             avatar: user.avatar,
             globalId: user.globalId,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
+            deletedAt: user.deletedAt,
             // sessionId: sessionData.id,
         });
 

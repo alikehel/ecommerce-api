@@ -49,6 +49,9 @@ export const getUserHandler: AppRouteHandler<typeof getUserRoute> = async (c) =>
             balance: true,
             avatar: true,
             globalId: true,
+            createdAt: true,
+            updatedAt: true,
+            deletedAt: true,
         },
     });
 

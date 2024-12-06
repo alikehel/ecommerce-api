@@ -89,6 +89,9 @@ export const loginHandler: AppRouteHandler<typeof loginRoute> = async (c) => {
                     verified: user.verified,
                     avatar: user.avatar,
                     globalId: user.globalId,
+                    createdAt: user.createdAt,
+                    updatedAt: user.updatedAt,
+                    deletedAt: user.deletedAt,
                 },
                 session: {
                     token: token,

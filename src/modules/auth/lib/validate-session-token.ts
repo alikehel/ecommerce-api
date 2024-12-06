@@ -1,10 +1,9 @@
 import { eq } from "drizzle-orm";
 import type { DrizzleD1Database } from "drizzle-orm/d1";
 
-import type { schema } from "@/db/schema";
-import { usersTable } from "@/modules/users/schemas";
+import { type schema, sessionsTable, usersTable } from "@/db/schema";
 
-import { type SessionValidationResult, sessionsTable } from "../schemas";
+import { type SessionValidationResult } from "../schemas";
 import { encodeHexLowerCase } from "./encode-hex-lower-case";
 import { sha256 } from "./sha256";
 

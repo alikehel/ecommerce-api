@@ -16,6 +16,6 @@ export const sessionTokenSchema = sessionSelectSchema
         token: z.string(),
     });
 
-export type Session = InferSelectModel<typeof sessionsTable>;
+export type Session = Pick<InferSelectModel<typeof sessionsTable>, "id" | "userId" | "expiresAt">;
 
 export type SessionValidationResult = { session: Session; user: User } | { session: null; user: null };
