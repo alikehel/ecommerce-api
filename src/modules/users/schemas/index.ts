@@ -42,6 +42,9 @@ export const usersInsertSchemaCommon = createInsertSchema(usersTable, {
     kycSelfie: true,
     balance: true,
     avatar: true,
+    createdAt: true,
+    updatedAt: true,
+    deletedAt: true,
 });
 
 export const usersInsertSchema = z
