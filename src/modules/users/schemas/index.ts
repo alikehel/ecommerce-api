@@ -12,7 +12,7 @@ export const usersTable = sqliteTable(
         password: text().notNull(),
         firstName: text().notNull(),
         lastName: text().notNull(),
-        role: text().default("user"),
+        role: text().$type<"user" | "admin">().default("user").notNull(),
         avatar: text(),
         verified: int({ mode: "boolean" }).default(false),
         kycCardFront: text(),
