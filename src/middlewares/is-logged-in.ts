@@ -63,6 +63,7 @@ export const isLoggedIn = (): MiddlewareHandler => {
             role: user.role,
             verified: user.verified,
             avatar: user.avatar,
+            globalId: user.globalId,
             // sessionId: sessionData.id,
         });
 

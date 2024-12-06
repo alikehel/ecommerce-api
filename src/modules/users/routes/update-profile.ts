@@ -54,6 +54,7 @@ export const updateProfileHandler: AppRouteHandler<typeof updateProfileRoute> = 
             role: usersTable.role,
             verified: usersTable.verified,
             avatar: usersTable.avatar,
+            globalId: usersTable.globalId,
         });
 
     if (!user) {

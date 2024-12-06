@@ -1,4 +1,5 @@
 import { createRoute, z } from "@hono/zod-openapi";
+import { eq } from "drizzle-orm";
 
 import { CREATED, UNPROCESSABLE_ENTITY } from "@/lib/http-status-codes";
 import { jsonContent } from "@/lib/openapi-helpers";
@@ -62,6 +63,8 @@ export const registerHandler: AppRouteHandler<typeof registerRoute> = async (c) 
         );
     }
 
+    // TODO: Make these a transaction or a batch
+    // Insert user
     const [newUser] = await c.var.db
         .insert(usersTable)
         .values({
@@ -80,7 +83,13 @@ export const registerHandler: AppRouteHandler<typeof registerRoute> = async (c) 
             role: usersTable.role,
             verified: usersTable.verified,
             avatar: usersTable.avatar,
+            globalId: usersTable.globalId,
         });
+    // Add globalId
+    const countryCode = c.req.raw?.cf?.country ?? "XX";
+    const id = newUser.id.toString().padStart(10, "0");
+    const globalId = `${countryCode}${id}`;
+    await c.var.db.update(usersTable).set({ globalId }).where(eq(usersTable.id, newUser.id));
 
     const token = generateSessionToken();
     const session = await createSession(db, token, newUser.id);
@@ -91,7 +100,7 @@ export const registerHandler: AppRouteHandler<typeof registerRoute> = async (c) 
         {
             success: true,
             data: {
-                user: newUser,
+                user: { ...newUser, globalId },
                 session: {
                     token: token,
                     expiresAt: session.expiresAt,

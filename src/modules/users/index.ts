@@ -1,7 +1,7 @@
 import { createRouter } from "@/lib/create-app";
 
 import { changePasswordHandler, changePasswordRoute } from "./routes/change-password";
-import { createUserHandler, createUserRoute } from "./routes/create-user";
+// import { createUserHandler, createUserRoute } from "./routes/create-user";
 import { deleteUserHandler, deleteUserRoute } from "./routes/delete-user";
 import { getProfileHandler, getProfileRoute } from "./routes/get-profile";
 import { getUserHandler, getUserRoute } from "./routes/get-user";
@@ -15,7 +15,7 @@ export const usersRouter = createRouter()
     .openapi(updateProfileRoute, updateProfileHandler)
     .openapi(changePasswordRoute, changePasswordHandler)
     .openapi(updateProfileAvatarRoute, updateProfileAvatarHandler)
-    .openapi(createUserRoute, createUserHandler)
+    // .openapi(createUserRoute, createUserHandler)
     .openapi(getUsersRoute, getUsersHandler)
     .openapi(getUserRoute, getUserHandler)
     .openapi(updateUserRoute, updateUserHandler)

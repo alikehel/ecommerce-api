@@ -71,6 +71,13 @@
             "when": 1733475477880,
             "tag": "0009_little_the_leader",
             "breakpoints": true
+        },
+        {
+            "idx": 10,
+            "version": "6",
+            "when": 1733476986736,
+            "tag": "0010_grey_electro",
+            "breakpoints": true
         }
     ]
 }

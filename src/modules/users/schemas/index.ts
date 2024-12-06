@@ -19,6 +19,7 @@ export const usersTable = sqliteTable(
         kycCardBack: text(),
         kycSelfie: text(),
         balance: int().notNull().default(0),
+        globalId: text().unique(),
     },
     (table) => ({
         checkConstraint: check(
@@ -30,7 +31,7 @@ export const usersTable = sqliteTable(
 
 export type User = Pick<
     InferSelectModel<typeof usersTable>,
-    "id" | "email" | "phone" | "firstName" | "lastName" | "role" | "verified" | "avatar"
+    "id" | "email" | "phone" | "firstName" | "lastName" | "role" | "verified" | "avatar" | "globalId"
 >;
 
 export const usersInsertSchemaCommon = createInsertSchema(usersTable, {
@@ -44,6 +45,7 @@ export const usersInsertSchemaCommon = createInsertSchema(usersTable, {
     lastName: z.string().min(2),
 }).omit({
     id: true,
+    globalId: true,
     email: true,
     phone: true,
     role: true,
@@ -52,6 +54,7 @@ export const usersInsertSchemaCommon = createInsertSchema(usersTable, {
     kycCardBack: true,
     kycSelfie: true,
     balance: true,
+    avatar: true,
 });
 
 export const usersInsertSchema = z

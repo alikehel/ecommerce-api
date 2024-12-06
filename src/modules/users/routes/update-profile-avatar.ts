@@ -80,6 +80,7 @@ export const updateProfileAvatarHandler: AppRouteHandler<typeof updateProfileAva
             role: usersTable.role,
             verified: usersTable.verified,
             avatar: usersTable.avatar,
+            globalId: usersTable.globalId,
         });
 
     if (!user) {
