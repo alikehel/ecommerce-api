@@ -47,18 +47,18 @@ export const usersInsertSchemaCommon = createInsertSchema(usersTable, {
     deletedAt: true,
 });
 
-export const usersInsertSchema = z
-    .discriminatedUnion("loginWith", [
-        z.object({
-            loginWith: z.literal("email"),
-            email: z.string().email(),
-        }),
-        z.object({
-            loginWith: z.literal("phone"),
-            phone: z.string(),
-        }),
-    ])
-    .and(usersInsertSchemaCommon);
+export const loginWithSchema = z.discriminatedUnion("loginWith", [
+    z.object({
+        loginWith: z.literal("email"),
+        email: z.string().email(),
+    }),
+    z.object({
+        loginWith: z.literal("phone"),
+        phone: z.string(),
+    }),
+]);
+
+export const usersInsertSchema = loginWithSchema.and(usersInsertSchemaCommon);
 
 export const usersLoginSchema = z
     .discriminatedUnion("loginWith", [

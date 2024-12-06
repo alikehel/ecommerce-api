@@ -78,6 +78,18 @@ export const categoriesTable = sqliteTable("categories", {
     ...timestamps,
 });
 
+export const tokensTable = sqliteTable("tokens", {
+    id: int().primaryKey({ autoIncrement: true }),
+    userId: int()
+        .notNull()
+        .references(() => usersTable.id, { onDelete: "cascade" }),
+    token: text().notNull(),
+    expiresAt: int({
+        mode: "timestamp",
+    }).notNull(),
+    ...timestamps,
+});
+
 export const schema = {
     sessionsTable,
     usersTable,
