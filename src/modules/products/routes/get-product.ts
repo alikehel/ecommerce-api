@@ -52,6 +52,7 @@ export const getProductHandler: AppRouteHandler<typeof getProductRoute> = async 
             createdAt: productsTable.createdAt,
             updatedAt: productsTable.updatedAt,
             deletedAt: productsTable.deletedAt,
+            userId: productsTable.userId,
         })
         .from(productsTable)
         .where(eq(productsTable.id, pathParams.productId))

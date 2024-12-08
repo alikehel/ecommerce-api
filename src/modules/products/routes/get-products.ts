@@ -29,6 +29,7 @@ export const getProductsRoute = createRoute({
                 stock: productsParamsSchema.shape.stock.optional(),
                 category_id: productsParamsSchema.shape.categoryId.optional(),
                 active: productsParamsSchema.shape.active.optional(),
+                user_id: productsParamsSchema.shape.userId.optional(),
             }),
             Object.keys({
                 ...productsParamsSchema.shape,
@@ -58,6 +59,7 @@ export const getProductsHandler: AppRouteHandler<typeof getProductsRoute> = asyn
         queryParams.stock ? eq(productsTable.stock, queryParams.stock) : undefined,
         queryParams.categoryId ? eq(productsTable.categoryId, queryParams.categoryId) : undefined,
         queryParams.active ? eq(productsTable.active, queryParams.active) : undefined,
+        queryParams.userId ? eq(productsTable.userId, queryParams.userId) : undefined,
     );
 
     const totalItemsCount = await c.var.db.$count(productsTable, where);
@@ -82,6 +84,7 @@ export const getProductsHandler: AppRouteHandler<typeof getProductsRoute> = asyn
             createdAt: productsTable.createdAt,
             updatedAt: productsTable.updatedAt,
             deletedAt: productsTable.deletedAt,
+            userId: productsTable.userId,
         })
         .from(productsTable)
         .where(where)

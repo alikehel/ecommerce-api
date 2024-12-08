@@ -51,6 +51,7 @@ export const getServiceHandler: AppRouteHandler<typeof getServiceRoute> = async 
             createdAt: servicesTable.createdAt,
             updatedAt: servicesTable.updatedAt,
             deletedAt: servicesTable.deletedAt,
+            userId: servicesTable.userId,
         })
         .from(servicesTable)
         .where(eq(servicesTable.id, pathParams.serviceId))

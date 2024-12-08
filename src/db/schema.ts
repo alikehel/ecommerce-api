@@ -50,6 +50,9 @@ export const productsTable = sqliteTable("products", {
     categoryId: int()
         .references(() => categoriesTable.id, { onDelete: "set null" })
         .notNull(),
+    userId: int()
+        .references(() => usersTable.id, { onDelete: "cascade" })
+        .notNull(),
     mainImage: text().notNull().default(""),
     images: text({ mode: "json" }).$type<string[]>().default([]).notNull(),
     active: int({ mode: "boolean" }).default(true).notNull(),
@@ -63,6 +66,9 @@ export const servicesTable = sqliteTable("services", {
     price: int().notNull(), // Store in cents to avoid floating point errors
     categoryId: int()
         .references(() => categoriesTable.id, { onDelete: "set null" })
+        .notNull(),
+    userId: int()
+        .references(() => usersTable.id, { onDelete: "cascade" })
         .notNull(),
     mainImage: text().notNull().default(""),
     images: text({ mode: "json" }).$type<string[]>().default([]).notNull(),

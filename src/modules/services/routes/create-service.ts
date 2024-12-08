@@ -46,6 +46,7 @@ export const createServiceHandler: AppRouteHandler<typeof createServiceRoute> = 
             description: data.description,
             price: data.price,
             categoryId: data.categoryId,
+            userId: c.var.user.id,
         })
         .returning();
 

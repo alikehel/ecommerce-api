@@ -28,6 +28,7 @@ export const getServicesRoute = createRoute({
                 name: servicesParamsSchema.shape.name.optional(),
                 category_id: servicesParamsSchema.shape.categoryId.optional(),
                 active: servicesParamsSchema.shape.active.optional(),
+                user_id: servicesParamsSchema.shape.userId.optional(),
             }),
             Object.keys({
                 ...servicesParamsSchema.shape,
@@ -56,6 +57,7 @@ export const getServicesHandler: AppRouteHandler<typeof getServicesRoute> = asyn
         queryParams.name ? eq(servicesTable.name, queryParams.name) : undefined,
         queryParams.categoryId ? eq(servicesTable.categoryId, queryParams.categoryId) : undefined,
         queryParams.active ? eq(servicesTable.active, queryParams.active) : undefined,
+        queryParams.userId ? eq(servicesTable.userId, queryParams.userId) : undefined,
     );
 
     const totalItemsCount = await c.var.db.$count(servicesTable, where);
@@ -79,6 +81,7 @@ export const getServicesHandler: AppRouteHandler<typeof getServicesRoute> = asyn
             createdAt: servicesTable.createdAt,
             updatedAt: servicesTable.updatedAt,
             deletedAt: servicesTable.deletedAt,
+            userId: servicesTable.userId,
         })
         .from(servicesTable)
         .where(where)

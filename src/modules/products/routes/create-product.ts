@@ -47,6 +47,7 @@ export const createProductHandler: AppRouteHandler<typeof createProductRoute> = 
             price: data.price,
             stock: data.stock,
             categoryId: data.categoryId,
+            userId: c.var.user.id,
         })
         .returning();
 
