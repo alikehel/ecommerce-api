@@ -69,8 +69,8 @@ export const registerHandler: AppRouteHandler<typeof registerRoute> = async (c) 
     const [newUser] = await c.var.db
         .insert(usersTable)
         .values({
-            email: data.loginWith === "email" ? data.email : null,
-            phone: data.loginWith === "phone" ? data.phone : null,
+            email: data.loginWith === "email" ? data.email : data.email,
+            phone: data.loginWith === "phone" ? data.phone : data.phone,
             password: await hashPasswordV1(data.password),
             firstName: data.firstName,
             lastName: data.lastName,

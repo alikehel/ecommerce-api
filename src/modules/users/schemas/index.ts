@@ -51,10 +51,12 @@ export const loginWithSchema = z.discriminatedUnion("loginWith", [
     z.object({
         loginWith: z.literal("email"),
         email: z.string().email(),
+        phone: z.string().optional(),
     }),
     z.object({
         loginWith: z.literal("phone"),
         phone: z.string(),
+        email: z.string().email().optional(),
     }),
 ]);
 
