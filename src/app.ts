@@ -2,6 +2,7 @@ import { configureOpenAPI } from "./lib/configure-openapi";
 import { configureAuthRouter, configureRouters } from "./lib/configure-routers";
 import { createApp } from "./lib/create-app";
 import { authRouter } from "./modules/auth";
+import { balanceRouter } from "./modules/balance";
 import { categoriesRouter } from "./modules/categories";
 import { kycRouter } from "./modules/kyc";
 import { productsRouter } from "./modules/products";
@@ -20,7 +21,7 @@ configureOpenAPI(app);
 
 configureAuthRouter(app, authRouter);
 
-configureRouters(app, [usersRouter, kycRouter, servicesRouter, productsRouter, categoriesRouter]);
+configureRouters(app, [usersRouter, kycRouter, servicesRouter, productsRouter, categoriesRouter, balanceRouter]);
 
 // Export App
 
